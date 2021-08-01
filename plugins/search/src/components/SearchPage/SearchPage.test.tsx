@@ -68,7 +68,7 @@ describe('SearchPage', () => {
     const expectedPageCursor = 'page2-or-something';
 
     // e.g. ?query=petstore&pageCursor=1&filters[lifecycle][]=experimental&filters[kind]=Component
-    (useLocation as jest.Mock).mockReturnValueOnce({
+    (useLocation as jest.Mock).mockReturnValue({
       search: `?query=${expectedTerm}&types[]=${expectedTypes[0]}&filters[${expectedFilterField}]=${expectedFilterValue}&pageCursor=${expectedPageCursor}`,
     });
 
