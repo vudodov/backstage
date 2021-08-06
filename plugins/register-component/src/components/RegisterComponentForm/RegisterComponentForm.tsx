@@ -50,10 +50,9 @@ export type Props = {
 };
 
 export const RegisterComponentForm = ({ onSubmit, submitting }: Props) => {
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, errors, formState } = useForm({
     mode: 'onChange',
   });
-  const { errors } = formState;
   const classes = useStyles();
   const hasErrors = !!errors.entityLocation;
   const dirty = formState?.isDirty;
@@ -78,18 +77,19 @@ export const RegisterComponentForm = ({ onSubmit, submitting }: Props) => {
     >
       <FormControl>
         <TextField
-          {...register('entityLocation', {
-            required: true,
-            validate: ComponentIdValidators,
-          })}
           id="registerComponentInput"
           variant="outlined"
           label="Entity file URL"
           error={hasErrors}
           placeholder="https://example.com/user/some-service/blob/master/catalog-info.yaml"
+          name="entityLocation"
           required
           margin="normal"
           helperText="Enter the full path to the catalog-info.yaml file in GitHub, GitLab, Bitbucket or Azure to start tracking your component."
+          inputRef={register({
+            required: true,
+            validate: ComponentIdValidators,
+          })}
         />
 
         {errors.entityLocation && (
